@@ -1,0 +1,5 @@
+# File state
+terraform.tfstate*
+
+# Directory plugin
+.terraform/
