@@ -32,7 +32,7 @@ Dan terraform sudah siap untuk digunakan.
 2. Kemudian buat file dan directory yang akan digunakan.  
 `$ mkdir example; cd example; touch main.tf`
 
-3. Kemudian pada percobaan 1, percobaan akan melakukan provisioning instance dengan menggunakan security_groups yang telah tersedia. Berikut contoh file konfigurasi terraform yang akan digunakan:   
+3. Kemudian pada percobaan 1, percobaan akan melakukan provisioning instance dengan menggunakan security_groups yang telah tersedia. Berikut contoh file konfigurasi [`main.tf`](main_1.tf.bak) terraform yang akan digunakan:   
 ```
 provider "alicloud"{   
 }
@@ -67,7 +67,7 @@ resource "alicloud_instance" "example-ecs"{
 ![Terraform destroy!](/images/ter_25.png "Destroy resources")
 
 #### - Medium
-1. Untuk percobaannya selanjutnya akan membahas penggunaan variable, pembuatan resource yang lebih banyak seperti [security group](https://www.alibabacloud.com/help/doc-detail/25387.htm?spm=a2c63.l28256.a3.99.722b7453Tm89wM), rules, [vpc](https://www.alibabacloud.com/help/doc-detail/34217.htm?spm=a2c63.l28256.a3.2.3b48639doJscRG), vswitch, dan attach key pair. Kemudian buat directory baru dan file file yang diperlukan, berikut konfigurasi dari terraform filenya:   
+1. Untuk percobaannya selanjutnya akan membahas penggunaan variable, pembuatan resource yang lebih banyak seperti [security group](https://www.alibabacloud.com/help/doc-detail/25387.htm?spm=a2c63.l28256.a3.99.722b7453Tm89wM), rules, [vpc](https://www.alibabacloud.com/help/doc-detail/34217.htm?spm=a2c63.l28256.a3.2.3b48639doJscRG), vswitch, dan attach key pair. Kemudian buat directory baru dan file file yang diperlukan, berikut konfigurasi dari terraform filenya [`main.tf`](main_2.tf.bak):   
 ```
 provider "alicloud"{
 }
@@ -146,7 +146,7 @@ resource "alicloud_security_group_rule" "ssh"{
 
 ```
 
-2. Kemudian, pada percobaan ini akan menerapkan penggunaan [variable](https://learn.hashicorp.com/terraform/getting-started/variables) untuk menampung nilai-nilai yang konstan, berikut contohnya:    
+2. Kemudian, pada percobaan ini akan menerapkan penggunaan [variable](https://learn.hashicorp.com/terraform/getting-started/variables) untuk menampung nilai-nilai yang konstan, berikut contohnya [`variables.tf`](variables_2.tf.bak):    
 ```
 variable "vpc_cidr"{
 	default="10.1.0.0/21"
