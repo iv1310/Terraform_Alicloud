@@ -72,4 +72,5 @@ resource "alicloud_instance" "example-ecs"{
 ## Referensi
 1. [Terraform documentation](https://www.terraform.io/docs/index.html)
 2. [Download terraform](https://releases.hashicorp.com/terraform/)
-3. [Alicloud](https://www.alibabacloud.com/help)
+3. [Alicloud documentation](https://www.alibabacloud.com/help)
+4. [Terraform alicloud provider](https://www.terraform.io/docs/providers/alicloud/index.html)
