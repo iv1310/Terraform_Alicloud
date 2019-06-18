@@ -1,0 +1,74 @@
+provider "alicloud"{
+}
+
+resource "alicloud_vpc" "main"{
+	cidr_block="${var.vpc_cidr}"
+}
+
+resource "alicloud_vswitch" "main"{
+	vpc_id="${alicloud_vpc.main.id}"
+	cidr_block="${var.vswitch_cidr}"
+	availability_zone="${var.zone}"
+	depends_on=["alicloud_vpc.main"]
+}
+
+resource "alicloud_route_entry" "entry"{
+	route_table_id="${alicloud_vpc.main.router_table_id}"
+	destination_cidrblock="0.0.0.0/0"
+	nexthop_type="Instance"
+	nexthop_id="${alicloud_instance.instance-1.id}"
+}
+
+resource "alicloud_instance" "instance-1"{
+	availability_zone = "${var.zone}"
+	instance_type = "${var.instance_nat_type}"
+	image_id = "${var.image}"
+	instance_name = "Test-terraform"
+	security_groups = ["${alicloud_security_group.group.id}"]
+	vswitch_id = "${alicloud_vswitch.main.id}"
+  	internet_charge_type  = "PayByTraffic"	
+	internet_max_bandwidth_out=2
+	instance_charge_type="PostPaid"
+}
+
+resource "alicloud_key_pair_attachment" "attachment"{
+	key_name="ivan-intern"
+	instance_ids=["${alicloud_instance.instance-1.*.id}"]
+}
+
+resource "alicloud_security_group" "group"{
+	name="terraform_test_group"
+	description="New Security Group"
+	vpc_id="${alicloud_vpc.main.id}"
+}
+
+resource "alicloud_security_group_rule" "allow_in"{
+	security_group_id="${alicloud_security_group.group.id}"
+	type="ingress"
+	cidr_ip="0.0.0.0/0"
+	policy="accept"
+	ip_protocol="all"
+	nic_type="intranet"
+	port_range="-1/-1"
+	priority=1
+}
+
+resource "alicloud_security_group_rule" "allow_out"{
+	security_group_id="${alicloud_security_group.group.id}"
+	type="egress"
+	cidr_ip="0.0.0.0/0"
+	policy="accept"
+	ip_protocol="all"
+	nic_type="intranet"
+	port_range="-1/-1"
+	priority=1
+}
+
+resource "alicloud_security_group_rule" "ssh"{
+	security_group_id="${alicloud_security_group.group.id}"
+	type="ingress"
+	port_range="22/22"
+	ip_protocol="tcp"
+	cidr_ip="0.0.0.0/0"
+	policy="accept"
+}
