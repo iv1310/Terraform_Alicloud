@@ -67,21 +67,137 @@ resource "alicloud_instance" "example-ecs"{
 ![Terraform destroy!](/images/ter_25.png "Destroy resources")
 
 #### - Medium
-1. Untuk percobaannya selanjutnya akan membahas penggunaan variable, pembuatan resource yang lebih banyak seperti security group, rules, vpc, vswitch, dan attach key pair. Kemudian buat directory baru dan file file yang diperlukan, berikut konfigurasi dari terraform filenya:
+1. Untuk percobaannya selanjutnya akan membahas penggunaan variable, pembuatan resource yang lebih banyak seperti security group, rules, vpc, vswitch, dan attach key pair. Kemudian buat directory baru dan file file yang diperlukan, berikut konfigurasi dari terraform filenya:   
+```
+provider "alicloud"{
+}
 
-2. Kemudian, pada percobaan ini akan menerapkan penggunaan variable untuk menampung nilai-nilai yang konstan, berikut contohnya.
+resource "alicloud_vpc" "main"{
+	cidr_block="${var.vpc_cidr}"
+}
 
-3. Kemudian jalankan `$ terraform init`.
+resource "alicloud_vswitch" "main"{
+	vpc_id="${alicloud_vpc.main.id}"
+	cidr_block="${var.vswitch_cidr}"
+	availability_zone="${var.zone}"
+	depends_on=["alicloud_vpc.main"]
+}
 
-4. Selanjutnya jalankan perintah `$ terraform plan` untuk memastikan resource yang akan di provision oleh terraform.
+resource "alicloud_route_entry" "entry"{
+	route_table_id="${alicloud_vpc.main.router_table_id}"
+	destination_cidrblock="0.0.0.0/0"
+	nexthop_type="Instance"
+	nexthop_id="${alicloud_instance.instance-1.id}"
+}
 
-5. Kemudian setelah memastikan setiap resource yang akan diprovision sudah benar, lanjutkan dengan perintah `$ terraform apply`.
+resource "alicloud_instance" "instance-1"{
+	availability_zone = "${var.zone}"
+	instance_type = "${var.instance_nat_type}"
+	image_id = "${var.image}"
+	instance_name = "Test-terraform"
+	security_groups = ["${alicloud_security_group.group.id}"]
+	vswitch_id = "${alicloud_vswitch.main.id}"
+  	internet_charge_type  = "PayByTraffic"	
+	internet_max_bandwidth_out=2
+	instance_charge_type="PostPaid"
+}
 
-6. Kemudian coba cek resource pada aliyun console.
+resource "alicloud_key_pair_attachment" "attachment"{
+	key_name="ivan-intern"
+	instance_ids=["${alicloud_instance.instance-1.*.id}"]
+}
 
-7. Kemudian coba cek state information menggunakan perintah `$ terraform show`.
+resource "alicloud_security_group" "group"{
+	name="terraform_test_group"
+	description="New Security Group"
+	vpc_id="${alicloud_vpc.main.id}"
+}
 
-8. Kemudian setelah selesai menggunakan resource dan ingin menghapus, gunakan perintah `$ terraform destroy`.
+resource "alicloud_security_group_rule" "allow_in"{
+	security_group_id="${alicloud_security_group.group.id}"
+	type="ingress"
+	cidr_ip="0.0.0.0/0"
+	policy="accept"
+	ip_protocol="all"
+	nic_type="intranet"
+	port_range="-1/-1"
+	priority=1
+}
+
+resource "alicloud_security_group_rule" "allow_out"{
+	security_group_id="${alicloud_security_group.group.id}"
+	type="egress"
+	cidr_ip="0.0.0.0/0"
+	policy="accept"
+	ip_protocol="all"
+	nic_type="intranet"
+	port_range="-1/-1"
+	priority=1
+}
+
+resource "alicloud_security_group_rule" "ssh"{
+	security_group_id="${alicloud_security_group.group.id}"
+	type="ingress"
+	port_range="22/22"
+	ip_protocol="tcp"
+	cidr_ip="0.0.0.0/0"
+	policy="accept"
+}
+
+```
+
+2. Kemudian, pada percobaan ini akan menerapkan penggunaan variable untuk menampung nilai-nilai yang konstan, berikut contohnya:    
+```
+variable "vpc_cidr"{
+	default="10.1.0.0/21"
+}
+
+variable "vswitch_cidr"{
+	default="10.1.1.0/24"
+}
+
+variable "zone"{
+	default="ap-southeast-5a"
+}
+
+variable "image"{
+	default="ubuntu_16_04_64_20G_alibase_20190513.vhd"
+}
+
+variable "instance_nat_type"{
+	default="ecs.g5.large"
+}
+
+```
+
+3. Kemudian jalankan `$ terraform init`.    
+![ALT HERE!](/images/ter_32.png "Initiation plugin provider")
+
+4. Selanjutnya jalankan perintah `$ terraform plan` untuk memastikan resource yang akan di provision oleh terraform.    
+![ALT HERE!](/images/ter_33.png "Terraform plan")
+
+5. Kemudian setelah memastikan setiap resource yang akan diprovision sudah benar, lanjutkan dengan perintah `$ terraform apply`.    
+![ALT HERE!](/images/ter_34.png "Terraform plan")
+
+6. Kemudian coba cek resource pada aliyun console.   
+ - Instance 
+ ![ALT HERE!](/images/ter_35.png "Instance Resource")   
+ - Security_groups
+ ![ALT HERE!](/images/ter_36.png "Security Groups Resource")    
+ - VPC
+ ![ALT HERE!](/images/ter_37.png "VPC Resource")   
+ - VSwitch
+ ![ALT HERE!](/images/ter_38.png "VSwitch Resource")   
+ - Route Table
+ ![ALT HERE!](/images/ter_39.png "Route Table Resource")    
+ - Security_groups_rules
+ ![ALT HERE!](/images/ter_40.png "Security Groups Rules Resources")   
+ 
+7. Kemudian coba cek state information menggunakan perintah `$ terraform show`.   
+![ALT HERE!](/images/ter_41.png "Terraform state information")
+
+8. Kemudian setelah selesai menggunakan resource dan ingin menghapus, gunakan perintah `$ terraform destroy`.   
+![ALT HERE!](/images/ter_43.png "Terraform destroy")
 
 ## Referensi
 1. [Terraform documentation](https://www.terraform.io/docs/index.html)
