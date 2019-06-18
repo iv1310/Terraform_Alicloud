@@ -45,3 +45,6 @@ Dan terraform sudah siap untuk digunakan.
 9. Atau untuk melihat state bisa juga dengan perintah `$ terraform show`
 
 10. Selanjutnya, ketika ingin menghapus semua resource yang sebelumnya telah diprovision, gunakan perintah `$ terraform destroy`
+
+## Referensi
+1. 
