@@ -47,4 +47,6 @@ Dan terraform sudah siap untuk digunakan.
 10. Selanjutnya, ketika ingin menghapus semua resource yang sebelumnya telah diprovision, gunakan perintah `$ terraform destroy`
 
 ## Referensi
-1. 
+1. [Terraform documentation](https://www.terraform.io/docs/index.html)
+2. [Download terraform](https://releases.hashicorp.com/terraform/)
+3. [Alicloud](https://www.alibabacloud.com/help)
