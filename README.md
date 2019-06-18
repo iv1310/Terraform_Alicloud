@@ -18,33 +18,41 @@
 
 4. Kemudian coba jalankan file executablenya untuk melihat versi dari terraform.  
 `$ ./terraform version`  
-**Output**:
-
+**Output**:   
+![Terraform version!](/images/ter_29.png "Terraform version")
 5. Kemudian pindahkan atau copy file executable kedalam directory bin.  
 `$ mv terraform /usr/local/bin`  
 Dan terraform sudah siap untuk digunakan.
 
 ## Usage
-1. Pertama sekali tambahkan ***accessKey, secretKey, dan region*** pada environment variabel, untuk memudahkan penggunaan alicloud sebagai provider. Tambahkan pada file: *~/.bashrc, ~/.zshrc,dll*. Pada contoh berikut menggunakan file *~/.zshrc*:
+1. Pertama sekali tambahkan ***accessKey, secretKey, dan region*** pada environment variabel, untuk memudahkan penggunaan alicloud sebagai provider. Tambahkan pada file: *~/.bashrc, ~/.zshrc,dll*. Pada contoh berikut menggunakan file *~/.zshrc*:   
+![Set Environment Variable!](/images/ter_15.png "Export environment variables")
 
 2. Kemudian buat file dan directory yang akan digunakan.  
 `$ mkdir example; cd example; touch main.tf`
 
 3. Kemudian pada percobaan 1, percobaan akan melakukan provisioning instance dengan menggunakan security_groups yang telah tersedia. Berikut contoh file konfigurasi terraform yang akan digunakan:
 
-4. Kemudian lakukan inisiasi, yang bertujuan untuk mendowload plugin dari provider(*alicloud*) yang digunakan dengan perintah, `$ terraform init`
+4. Kemudian lakukan inisiasi, yang bertujuan untuk mendowload plugin dari provider(*alicloud*) yang digunakan dengan perintah, `$ terraform init`  
+![Terraform init!](/images/ter_18.png "Initiation plugin provider")
 
-5. Kemudian untuk memastikan resource apa saja yang akan diproses nantinya oleh terraform, gunakan perintah `$ terraform plan`
+5. Kemudian untuk memastikan resource apa saja yang akan diproses nantinya oleh terraform, gunakan perintah `$ terraform plan`   
+![Terraform plan!](/images/ter_19.png "Check resources")
 
-6. Kemudian setelah memastikan setiap resource yang akan diproses sudah benar, tinggal jalankan terraform untuk memprovision setiap resource yang terdaftar, gunakan perintah `$ terraform apply`. Dan ketika muncul prompt untuk konfirmasi, isi dengan yes.
+6. Kemudian setelah memastikan setiap resource yang akan diproses sudah benar, tinggal jalankan terraform untuk memprovision setiap resource yang terdaftar, gunakan perintah `$ terraform apply`. Dan ketika muncul prompt untuk konfirmasi, isi dengan yes.  
+![Terraform apply!](/images/ter_21.png "Provisioning process")
 
-7. Kemudian cek pada aliyun console untuk memastikan apakah instance sudah terprovision atau belum.
+7. Kemudian cek pada aliyun console untuk memastikan apakah instance sudah terprovision atau belum.   
+![Aliyun Console!](/images/ter_22.png "Check aliyun console")
 
-8. Kemudian, terraform juga menyediakan fitur state information yang berisi track record konfigurasi yang telah dijalankan oleh terraform. State disimpan dalam JSON file pada local machine dengan nama *terraform.tfstate*.
+8. Kemudian, terraform juga menyediakan fitur state information yang berisi track record konfigurasi yang telah dijalankan oleh terraform. State disimpan dalam JSON file pada local machine dengan nama *terraform.tfstate*.    
+![Terraform state!](/images/ter_23.png "Terraform state information")
 
-9. Atau untuk melihat state bisa juga dengan perintah `$ terraform show`
+9. Atau untuk melihat state bisa juga dengan perintah `$ terraform show`    
+![Terraform show!](/images/ter_24.png "Terraform state information")
 
-10. Selanjutnya, ketika ingin menghapus semua resource yang sebelumnya telah diprovision, gunakan perintah `$ terraform destroy`
+10. Selanjutnya, ketika ingin menghapus semua resource yang sebelumnya telah diprovision, gunakan perintah `$ terraform destroy`    
+![Terraform destroy!](/images/ter_25.png "Destroy resources")
 
 ## Referensi
 1. [Terraform documentation](https://www.terraform.io/docs/index.html)
