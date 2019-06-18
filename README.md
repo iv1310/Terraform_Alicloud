@@ -1,5 +1,5 @@
 # Terraform_Alicloud
-  ***Terraform*** adalah tool open-source yang bisa digunakan untuk melakukan building, changing, dan versioning secara automasi pada perangkat infrastrktur dengan cara aman dan se-efisien mungkin. Untuk menentukan componen yang perlu diprovision tinggal menambahkannya saja dalam terraform file. Fiitur utama dari terraform adalah infrastructure as code, execution plans, resource graph, dan change automation
+[***Terraform***](https://www.terraform.io/intro/index.html) adalah tool open-source yang bisa digunakan untuk melakukan building, changing, dan versioning secara automasi pada perangkat infrastrktur dengan cara aman dan se-efisien mungkin. Untuk menentukan componen yang perlu diprovision tinggal menambahkannya saja dalam terraform file. Fiitur utama dari terraform adalah infrastructure as code, execution plans, resource graph, dan change automation
 
 ## Pre-requisites
 1. Dijalankan di Ubuntu 19.04
@@ -67,7 +67,7 @@ resource "alicloud_instance" "example-ecs"{
 ![Terraform destroy!](/images/ter_25.png "Destroy resources")
 
 #### - Medium
-1. Untuk percobaannya selanjutnya akan membahas penggunaan variable, pembuatan resource yang lebih banyak seperti security group, rules, vpc, vswitch, dan attach key pair. Kemudian buat directory baru dan file file yang diperlukan, berikut konfigurasi dari terraform filenya:   
+1. Untuk percobaannya selanjutnya akan membahas penggunaan variable, pembuatan resource yang lebih banyak seperti [security group](https://www.alibabacloud.com/help/doc-detail/25387.htm?spm=a2c63.l28256.a3.99.722b7453Tm89wM), rules, [vpc](https://www.alibabacloud.com/help/doc-detail/34217.htm?spm=a2c63.l28256.a3.2.3b48639doJscRG), vswitch, dan attach key pair. Kemudian buat directory baru dan file file yang diperlukan, berikut konfigurasi dari terraform filenya:   
 ```
 provider "alicloud"{
 }
@@ -146,7 +146,7 @@ resource "alicloud_security_group_rule" "ssh"{
 
 ```
 
-2. Kemudian, pada percobaan ini akan menerapkan penggunaan variable untuk menampung nilai-nilai yang konstan, berikut contohnya:    
+2. Kemudian, pada percobaan ini akan menerapkan penggunaan [variable](https://learn.hashicorp.com/terraform/getting-started/variables) untuk menampung nilai-nilai yang konstan, berikut contohnya:    
 ```
 variable "vpc_cidr"{
 	default="10.1.0.0/21"
