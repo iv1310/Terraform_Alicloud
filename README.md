@@ -25,6 +25,7 @@
 Dan terraform sudah siap untuk digunakan.
 
 ## Usage
+#### - Basic 
 1. Pertama sekali tambahkan ***accessKey, secretKey, dan region*** pada environment variabel, untuk memudahkan penggunaan alicloud sebagai provider. Tambahkan pada file: *~/.bashrc, ~/.zshrc,dll*. Pada contoh berikut menggunakan file *~/.zshrc*:   
 ![Set Environment Variable!](/images/ter_15.png "Export environment variables")
 
@@ -64,6 +65,9 @@ resource "alicloud_instance" "example-ecs"{
 
 10. Selanjutnya, ketika ingin menghapus semua resource yang sebelumnya telah diprovision, gunakan perintah `$ terraform destroy`    
 ![Terraform destroy!](/images/ter_25.png "Destroy resources")
+
+#### - Medium
+
 
 ## Referensi
 1. [Terraform documentation](https://www.terraform.io/docs/index.html)
