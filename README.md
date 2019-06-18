@@ -67,9 +67,24 @@ resource "alicloud_instance" "example-ecs"{
 ![Terraform destroy!](/images/ter_25.png "Destroy resources")
 
 #### - Medium
+1. Untuk percobaannya selanjutnya akan membahas penggunaan variable, pembuatan resource yang lebih banyak seperti security group, rules, vpc, vswitch, dan attach key pair. Kemudian buat directory baru dan file file yang diperlukan, berikut konfigurasi dari terraform filenya:
 
+2. Kemudian, pada percobaan ini akan menerapkan penggunaan variable untuk menampung nilai-nilai yang konstan, berikut contohnya.
+
+3. Kemudian jalankan `$ terraform init`.
+
+4. Selanjutnya jalankan perintah `$ terraform plan` untuk memastikan resource yang akan di provision oleh terraform.
+
+5. Kemudian setelah memastikan setiap resource yang akan diprovision sudah benar, lanjutkan dengan perintah `$ terraform apply`.
+
+6. Kemudian coba cek resource pada aliyun console.
+
+7. Kemudian coba cek state information menggunakan perintah `$ terraform show`.
+
+8. Kemudian setelah selesai menggunakan resource dan ingin menghapus, gunakan perintah `$ terraform destroy`.
 
 ## Referensi
 1. [Terraform documentation](https://www.terraform.io/docs/index.html)
 2. [Download terraform](https://releases.hashicorp.com/terraform/)
-3. [Alicloud](https://www.alibabacloud.com/help)
+3. [Alicloud documentation](https://www.alibabacloud.com/help)
+4. [Terraform alicloud provider](https://www.terraform.io/docs/providers/alicloud/index.html)
