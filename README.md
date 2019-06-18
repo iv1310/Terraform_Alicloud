@@ -31,7 +31,18 @@ Dan terraform sudah siap untuk digunakan.
 2. Kemudian buat file dan directory yang akan digunakan.  
 `$ mkdir example; cd example; touch main.tf`
 
-3. Kemudian pada percobaan 1, percobaan akan melakukan provisioning instance dengan menggunakan security_groups yang telah tersedia. Berikut contoh file konfigurasi terraform yang akan digunakan:
+3. Kemudian pada percobaan 1, percobaan akan melakukan provisioning instance dengan menggunakan security_groups yang telah tersedia. Berikut contoh file konfigurasi terraform yang akan digunakan:   
+```
+provider "alicloud"{   
+}
+
+resource "alicloud_instance" "example-ecs\"{
+ instance_type="ecs.g5.large"
+ image_id="ubuntu_16_04_64_20G_alibase_20190513.vhd"
+ security_groups=["sg-k1agjazrdjzag37rx3ab"]
+ vswitch_id="vsw-k1a38rwbjbm1hk7z53cem"
+}
+```
 
 4. Kemudian lakukan inisiasi, yang bertujuan untuk mendowload plugin dari provider(*alicloud*) yang digunakan dengan perintah, `$ terraform init`  
 ![Terraform init!](/images/ter_18.png "Initiation plugin provider")
